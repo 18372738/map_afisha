@@ -92,3 +92,4 @@ media/
 .idea
 venv/
 new_venv/
+*.Identifier

@@ -1,4 +1,4 @@
 from django.shortcuts import render
 
 def show_map(request):
-    return render(request, 'home.html')
+    return render(request, 'index.html')
