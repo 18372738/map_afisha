@@ -7,6 +7,7 @@ class Place(models.Model):
     description_long = models.TextField('Полное описнаие', blank=True)
     lat = models.FloatField("Широта")
     lon = models.FloatField("Долгота")
+    place_id = models.CharField("Id места",max_length=200, null=True)
 
     def __str__(self):
         return self.title
