@@ -14,13 +14,13 @@ def show_index(request):
             "geometry": {
                 "type": "Point",
                 "coordinates": [place.lon, place.lat]
-                },
+            },
             "properties": {
                 "title": place.title,
                 "placeId": place.place_id,
                 "detailsUrl": reverse('location_details', args=[place.id])
-                }
-            }for place in places]
+            }
+        }for place in places]
     }
     context = {"places" : payload}
 
