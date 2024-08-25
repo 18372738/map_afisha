@@ -20,3 +20,6 @@ class Picture(models.Model):
 
     def __str__(self):
         return f'{self.sequence_number} {self.place.title}'
+
+    class Meta:
+        ordering = ['sequence_number']
