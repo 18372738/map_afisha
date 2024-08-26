@@ -14,6 +14,8 @@ class ModelInline(SortableTabularInline):
             return format_html('<img src="{}" width="150" height="150" />', obj.image.url)
         return "Добавьте картинку, для отображения превью"
 
+    preview_image.short_description = "Превью"
+
 
 @admin.register(Place)
 class PlaceAdmin(SortableAdminBase, admin.ModelAdmin):

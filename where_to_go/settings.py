@@ -1,17 +1,22 @@
 
 from pathlib import Path
 import os
+from environs import Env
+
+
+env = Env()
+env.read_env()
 
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-SECRET_KEY = 'django-insecure-gqu$1b_s#a$+hn8c6fitn56fo9$(8x*@52=018_53igh=rz*90'
+SECRET_KEY = env.str('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env.bool('DEBUG', False)
 
-ALLOWED_HOSTS = ['127.0.0.1', '.pythonanywhere.com']
+ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', [])
 
 
 # Application definition
