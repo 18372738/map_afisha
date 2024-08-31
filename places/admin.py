@@ -19,6 +19,7 @@ class ModelInline(SortableTabularInline):
 
 @admin.register(Place)
 class PlaceAdmin(SortableAdminBase, admin.ModelAdmin):
+    search_fields = ('title',)
     inlines = [
         ModelInline,
     ]
