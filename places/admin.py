@@ -1,7 +1,8 @@
 from django.contrib import admin
-from .models import Picture, Place
 from django.utils.html import format_html
 from adminsortable2.admin import SortableAdminBase, SortableTabularInline
+
+from .models import Picture, Place
 
 
 class ModelInline(SortableTabularInline):
@@ -10,8 +11,15 @@ class ModelInline(SortableTabularInline):
     fields = ('image', 'preview_image', 'sequence_number',)
 
     def preview_image(self, obj):
+        width = 150
+        height = 150
         if obj.image:
-            return format_html('<img src="{}" width="150" height="150" />', obj.image.url)
+            return format_html(
+                '<img src="{}" style="max-width:{}px; max-height:{}px;" />',
+                obj.image.url,
+                width,
+                height,
+            )
         return "Добавьте картинку, для отображения превью"
 
     preview_image.short_description = "Превью"
@@ -27,4 +35,4 @@ class PlaceAdmin(SortableAdminBase, admin.ModelAdmin):
 
 @admin.register(Picture)
 class PictureAdmin(admin.ModelAdmin):
-    pass
+    raw_id_fields = ['place']
