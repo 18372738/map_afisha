@@ -7,8 +7,8 @@ from .models import Picture, Place
 
 class ModelInline(SortableTabularInline):
     model = Picture
-    readonly_fields = ('preview_image',)
-    fields = ('image', 'preview_image', 'sequence_number',)
+    readonly_fields = ("preview_image",)
+    fields = ("image", "preview_image", "sequence_number",)
 
     def preview_image(self, obj):
         width = 150
@@ -27,7 +27,7 @@ class ModelInline(SortableTabularInline):
 
 @admin.register(Place)
 class PlaceAdmin(SortableAdminBase, admin.ModelAdmin):
-    search_fields = ('title',)
+    search_fields = ("title",)
     inlines = [
         ModelInline,
     ]
@@ -35,4 +35,4 @@ class PlaceAdmin(SortableAdminBase, admin.ModelAdmin):
 
 @admin.register(Picture)
 class PictureAdmin(admin.ModelAdmin):
-    raw_id_fields = ['place']
+    raw_id_fields = ["place"]

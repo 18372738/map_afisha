@@ -7,17 +7,17 @@ from places.models import Place, Picture
 
 
 class Command(BaseCommand):
-    help = 'Загрузка данных места в базу данных'
+    help = "Загрузка данных места в базу данных"
 
     def add_arguments(self, parser):
         parser.add_argument(
-            'file_url',
+            "file_url",
             type=str,
-            help='Url-адрес на данные места'
+            help="Url-адрес на данные места"
             )
 
     def handle(self, *args, **kwargs):
-        url = kwargs['file_url']
+        url = kwargs["file_url"]
         response = requests.get(url)
         response.raise_for_status()
         payload = response.json()
@@ -26,19 +26,19 @@ class Command(BaseCommand):
 
     def handle_place(self, payload):
         place, created = Place.objects.update_or_create(
-            title=payload['title'],
+            title=payload["title"],
             defaults={
-                'short_description': payload['description_short'],
-                'long_description': payload['description_long'],
-                'lat': payload['coordinates']['lat'],
-                'lon': payload['coordinates']['lng'],
+                "short_description": payload["description_short"],
+                "long_description": payload["description_long"],
+                "lat": payload["coordinates"]["lat"],
+                "lon": payload["coordinates"]["lng"],
             }
         )
 
         return place
 
     def handle_picture(self, payload, place):
-        images_url = payload['imgs']
+        images_url = payload["imgs"]
         for number, url in enumerate(images_url, 1):
             try:
                 response = requests.get(url)
@@ -48,7 +48,7 @@ class Command(BaseCommand):
                 image_obj, created = Picture.objects.update_or_create(
                     sequence_number=number,
                     place=place,
-                    defaults={'image': image},
+                    defaults={"image": image},
                 )
 
             except HTTPError as http_err:

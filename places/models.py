@@ -3,9 +3,9 @@ from tinymce.models import HTMLField
 
 
 class Place(models.Model):
-    title = models.CharField('Название', max_length=200, unique=True)
-    short_description = models.TextField('Короткое описнаие', blank=True)
-    long_description = HTMLField('Полное описнаие', blank=True)
+    title = models.CharField("Название", max_length=200, unique=True)
+    short_description = models.TextField("Короткое описнаие", blank=True)
+    long_description = HTMLField("Полное описнаие", blank=True)
     lat = models.FloatField("Широта")
     lon = models.FloatField("Долгота")
 
@@ -21,13 +21,13 @@ class Picture(models.Model):
     )
     place = models.ForeignKey(
         Place,
-        verbose_name='Название места',
+        verbose_name="Название места",
         on_delete=models.CASCADE,
-        related_name='images')
-    image = models.ImageField('Картинка', null=True)
+        related_name="images")
+    image = models.ImageField(verbose_name="Картинка")
 
     class Meta:
-        ordering = ['sequence_number']
+        ordering = ["sequence_number"]
 
     def __str__(self):
-        return f'{self.sequence_number} {self.place.title}'
+        return f"{self.sequence_number} {self.place.title}"

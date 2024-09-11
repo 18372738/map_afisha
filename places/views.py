@@ -18,21 +18,21 @@ def show_index(request):
             "properties": {
                 "title": place.title,
                 "placeId": place.id,
-                "detailsUrl": reverse('location_details', args=[place.id])
+                "detailsUrl": reverse("location_details", args=[place.id])
             }
         }for place in places]
     }
     context = {"places": payload}
 
-    return render(request, 'index.html', context)
+    return render(request, "index.html", context)
 
 
 def location_details(request, place_id):
     place = get_object_or_404(
-        Place.objects.prefetch_related('images'),
+        Place.objects.prefetch_related("images"),
         pk=place_id
     )
-    data = {
+    payload = {
         "title": place.title,
         "imgs": [image.image.url for image in place.images.all()],
         "description_short": place.short_description,
@@ -44,7 +44,7 @@ def location_details(request, place_id):
     }
 
     return JsonResponse(
-        data,
+        payload,
         safe=False,
-        json_dumps_params={'ensure_ascii': False, 'indent': 2},
+        json_dumps_params={"ensure_ascii": False, "indent": 2},
     )
